@@ -16,8 +16,7 @@
 <% end -%>
 <% ips = Array(@modsec_disable_ips).join(',') %>
 <% if ips != '' %>
-  SecRule REMOTE_ADDR "<%= ips %>" "nolog,allow,id:1234123455"
-  SecAction  "phase:2,pass,nolog,id:1234123456"
+  SecRule REMOTE_ADDR "@IPMatch <%= ips %>" "phase:1,nolog,allow,ctl:ruleEngine=Off,id:1234123455"
 <% end -%>
 <% if @_modsec_disable_msgs.is_a?(Hash) -%>
 <%   @_modsec_disable_msgs.each do |location,rules| -%>
